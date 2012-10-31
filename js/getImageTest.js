@@ -15,8 +15,11 @@ $(document).ready(function(){
 		$.getJSON(str+'&callback=?', 
 			function(json){ 
 
-				// LOG the object returned by the API
-				console.log(json);
+				$.each(json, function(index, item){
+					$.each(item, function(index, v){
+						console.log(v);
+			    	});
+			    });
 				
 			}); // end of getJSON
 		
