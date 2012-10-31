@@ -1,0 +1,17 @@
+<?php
+
+$dbhost = 'localhost:2083';
+$dbuser = 'chancezh_guest';
+$dbpasswd = 'enter669%';
+$db = "chancezh_iolab3";
+
+$dbh = mysql_connect($dbhost, $dbuser, $dbpasswd) or die("Unable to connect to SQL server");
+$my_db = @mysql_select_db($db) or die("Unable to select database");
+
+	// For each item in the array that we get
+
+
+	// connect to database
+	// insert into database
+
+?>

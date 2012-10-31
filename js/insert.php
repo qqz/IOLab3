@@ -1,7 +1,29 @@
 <?php
 
-	// For each item in the array that we get
-	// Right now there's complete nothing in this file!
+$dbhost = 'localhost';
+$dbuser = 'chancezh_guest';
+$dbpasswd = 'enter669%';
+$db = "chancezh_iolab3";
 
+$dbh = mysql_connect($dbhost, $dbuser, $dbpasswd) or die("Unable to connect to SQL server");
+$my_db = @mysql_select_db($db) or die("Unable to select database");
+
+	// For each item in the array that we get
+	for (i = 0; i < objects.length; i++){
+		// insert into the database
+		$query1 = "INSERT INTO IMG(id) VALUES(" + objects[i].id + ")";
+		$query2 = "INSERT INTO IMG(created_time) VALUES(" + objects[i].created_time + ")";
+		$query3 = "INSERT INTO IMG(text) VALUES(" + objects[i].comments + ")";
+		$query4 = "INSERT INTO IMG(url) VALUES(" + objects[i].image_url + ")";
+		$query5 = "INSERT INTO IMG(lat) VALUES(" + objects[i].lat + ")";
+		$query6 = "INSERT INTO IMG(long) VALUES(" + objects[i].long + ")";
+		
+		mysql_query($query1) or die(mysql_error());
+		mysql_query($query2) or die(mysql_error());
+		mysql_query($query3) or die(mysql_error());
+		mysql_query($query4) or die(mysql_error());
+		mysql_query($query5) or die(mysql_error());
+		mysql_query($query6) or die(mysql_error()); 							
+	}
 
 ?>
