@@ -1,18 +1,22 @@
 
 $(document).ready(function(){
-	
+	var max_timestamp = 1351699210; // 11:00:10 AM
+	var min_timestamp = 1351699200; // 11:00:00 AM
+
 	//Do something every 5 seconds
-	// setInterval(function() {
-	// 	getInstagram();
-	// }, 1000);
+	var timer = setInterval(function() {
+		getInstagram(min_timestamp, max_timestamp);
+		min_timestamp += 10; // increments by 10s.
+		max_timestamp += 10;
+	}, 10000);
 
 	//Do something on click
 	$("#test_link_button").click(function() {
-		getInstagram();
+		clearInterval(timer);
 	});
 
-	function getInstagram(){
-		var str = 'https://api.instagram.com/v1/media/search?lat=48.858844&lng=2.2943&distance=12000&min_timestamp=1351429688';
+	function getInstagram(minT, maxT){
+		var str = 'https://api.instagram.com/v1/media/search?lat=48.858844&lng=2.2943&distance=12000&min_timestamp='+minT+'&max_timestamp='+maxT;
 
 		// guys, this is my super secret Instagram client ID
 		str = str + '&client_id=ecbef9870b1f4200a72dd0c95fa66941';
@@ -30,9 +34,9 @@ $(document).ready(function(){
 						image.created_time = v.created_time;
 						image.tags = v.tags;
 						image.images = v.images;
-
-						$('<p>'+v.id+','+v.link+','+v.created_time+','+v.tags+'</p>').appendTo('#results');
 						
+						console.log(v);
+
 						objects.push(image); // push image onto objects array
 			    	});
 			    });
@@ -47,8 +51,6 @@ $(document).ready(function(){
 					// 		 console.log("SUCCESS WOOOOO");
 					// 	 }
 					//  });
-				
-
 				
 			}); // end of getJSON
 		
