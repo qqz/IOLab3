@@ -1,14 +1,13 @@
 
 $(document).ready(function(){
-	var max_timestamp = 1351699210; // 11:00:10 AM
+	var max_timestamp = 1351699260; // 11:01:00 AM
 	var min_timestamp = 1351699200; // 11:00:00 AM
+	var client_id = '&client_id=ecbef9870b1f4200a72dd0c95fa66941';
 
 	//Do something every 5 seconds
 	var timer = setInterval(function() {
 		getInstagram(min_timestamp, max_timestamp);
-		min_timestamp += 10; // increments by 10s.
-		max_timestamp += 10;
-	}, 10000);
+	}, 1000);
 
 	//Do something on click
 	$("#test_link_button").click(function() {
@@ -16,30 +15,30 @@ $(document).ready(function(){
 	});
 
 	function getInstagram(minT, maxT){
-		var str = 'https://api.instagram.com/v1/media/search?lat=48.858844&lng=2.2943&distance=12000&min_timestamp='+minT+'&max_timestamp='+maxT;
+		var request = 'https://api.instagram.com/v1/media/search?lat=37.786403&lng=-122.405033&distance=1800&'+client_id+'&min_timestamp='+minT+'&max_timestamp='+maxT;
+		
+		min_timestamp += 60; // increments by 60s.
+		max_timestamp += 60;
 
-		// guys, this is my super secret Instagram client ID
-		str = str + '&client_id=ecbef9870b1f4200a72dd0c95fa66941';
-
-		$.getJSON(str+'&callback=?', 
+		$.getJSON(request+'&callback=?', 
 			function(json){ 
 
 				var objects = []; // an array of objects
 
-				$.each(json, function(index, item){
-					$.each(item, function(index, v){
-						var image = {}; // a new object.
-						image.id = v.id; // and its information
-						image.link = v.link;
-						image.created_time = v.created_time;
-						image.tags = v.tags;
-						image.images = v.images;
-						
-						console.log(v);
+				for (var i = 0;i<json.data.length;i++) {
+
+					var image = {}; // a new object.
+						image.id = json.data[i].id; // and its information
+						image.link = json.data[i].link;
+						image.created_time = json.data[i].created_time;
+						image.tags = json.data[i].tags;
+						image.thumbURL = json.data[i].images.thumbnail.url;
+						image.imageURL = json.data[i].images.standard_resolution.url;
+
+						console.log(image);
 
 						objects.push(image); // push image onto objects array
-			    	});
-			    });
+				};
 
 					// // Finally, send your array of objects to the PHP file
 					//  $.ajax({
