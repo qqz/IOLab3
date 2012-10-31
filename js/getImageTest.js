@@ -1,14 +1,13 @@
 
 $(document).ready(function(){
 	
-	// when Test Link button is clicked, call testLink
-	$('#test_link_button').on('click', testLink);
+	// Do something every 5 seconds
+	setInterval(function() {
+		getInstagram();
+	}, 5000);
 
-	// if button is clicked, test the link
-	function testLink(){
-		
-		var str = $('#link').val();
-		console.log(str);
+	function getInstagram(){
+		var str = 'https://api.instagram.com/v1/media/search?lat=48.858844&lng=2.2943&distance=12000&min_timestamp=1351429688';
 
 		// guys, this is my super secret Instagram client ID
 		str = str + '&client_id=1c221cf65ea740a7b718c08fa798b947';
@@ -18,6 +17,8 @@ $(document).ready(function(){
 
 				// LOG the object returned by the API
 				console.log(json);
+				
 			}); // end of getJSON
-	} // end of testLink
+		
+	} // end of getInstagram
 });
