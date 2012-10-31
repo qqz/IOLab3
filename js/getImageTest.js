@@ -7,7 +7,7 @@ $(document).ready(function(){
 	}, 5000);
 
 	function getInstagram(){
-		var str = 'https://api.instagram.com/v1/media/search?lat=48.858844&lng=2.2943&distance=12000&min_timestamp=1351429688';
+		var str = 'https://api.instagram.com/v1/media/search?lat=37.786403&lng=-122.405033&distance=1800&min_timestamp=1351656000';
 
 		// guys, this is my super secret Instagram client ID
 		str = str + '&client_id=1c221cf65ea740a7b718c08fa798b947';
