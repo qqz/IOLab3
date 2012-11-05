@@ -1,10 +1,10 @@
-var max_timestamp = 1351699260; // 11:01:00 AM
-var min_timestamp = 1351699200; // 11:00:00 AM
+var max_timestamp = 1351699260; // 11:01:00 AM Eastern
+var min_timestamp = 1351699200; // 11:00:00 AM Eastern
 var client_id = '&client_id=ecbef9870b1f4200a72dd0c95fa66941';
 
 $(document).ready(function(){
 
-	//Stop featching data
+	//Stop fetching data
 	$("#test_link_button").click(function() {
 		clearInterval(timer);
 	});
@@ -21,6 +21,9 @@ function getInstagram(minT, maxT){
 
 	min_timestamp += 60; // increments by 60s.
 	max_timestamp += 60;
+	console.log('new min: '+min_timestamp);
+	console.log('new max: '+max_timestamp);
+
 
 	$.getJSON(request+'&callback=?', 
 		function(json){ 
@@ -37,7 +40,7 @@ function getInstagram(minT, maxT){
 				image.thumbURL = json.data[i].images.thumbnail.url;
 				image.imageURL = json.data[i].images.standard_resolution.url;
 
-				$('<p>'+image.id+','+image.created_time+','+image.link+','+image.thumbURL+','+image.imageURL+'</p>').appendTo('#images');
+				$('<p>'+image.id+',<strong>'+image.created_time+'</strong>,'+image.link+','+image.thumbURL+','+image.imageURL+'</p>').appendTo('#images');
 				$('<p>'+image.id+','+image.tags+'</p>').appendTo('#tags');
 				objects.push(image); // push image onto objects array
 			};
