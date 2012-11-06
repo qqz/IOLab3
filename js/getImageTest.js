@@ -1,5 +1,5 @@
-var max_timestamp = 1351699260; // 11:01:00 AM Eastern
 var min_timestamp = 1351699200; // 11:00:00 AM Eastern
+var max_timestamp = 1351699220; // 11:00:20 AM Eastern
 var client_id = '&client_id=ecbef9870b1f4200a72dd0c95fa66941';
 
 $(document).ready(function(){
@@ -19,8 +19,8 @@ $(document).ready(function(){
 function getInstagram(minT, maxT){
 	var request = 'https://api.instagram.com/v1/media/search?lat=37.786403&lng=-122.405033&distance=1800&'+client_id+'&min_timestamp='+minT+'&max_timestamp='+maxT;
 
-	min_timestamp += 60; // increments by 60s.
-	max_timestamp += 60;
+	min_timestamp += 20; // increments by 20s.
+	max_timestamp += 20;
 	console.log('new min: '+min_timestamp);
 	console.log('new max: '+max_timestamp);
 
@@ -35,13 +35,25 @@ function getInstagram(minT, maxT){
 				var image = {}; // a new object.
 				image.id = json.data[i].id; // and its information
 				image.created_time = json.data[i].created_time;
-				image.link = json.data[i].link;
 				image.tags = json.data[i].tags;
+				image.link = json.data[i].link;
 				image.thumbURL = json.data[i].images.thumbnail.url;
 				image.imageURL = json.data[i].images.standard_resolution.url;
 
+				// Pull out individual tags from each image's tagset
+				for (var n = 0; n < image.tags.length ; n++){
+					var tag = {};
+					tag.id = image.id;
+					tag.name = image.tags[n];
+					$('<p>INDIVIDUAL TAG '+tag.id+','+tag.name+'</p>').appendTo('#tags');
+				};
+
+				// Append image info
 				$('<p>'+image.id+',<strong>'+image.created_time+'</strong>,'+image.link+','+image.thumbURL+','+image.imageURL+'</p>').appendTo('#images');
-				$('<p>'+image.id+','+image.tags+'</p>').appendTo('#tags');
+				// Append list of tags for image
+				$('<p>FULL TAG LIST '+image.id+','+image.tags+'</p>').appendTo('#tags');
+
+
 				objects.push(image); // push image onto objects array
 			};
 
