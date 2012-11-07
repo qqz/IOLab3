@@ -32,7 +32,7 @@
 				 * http://php.net/manual/en/function.mysql-query.php */
 
 				// Select ALL images for now
-				$query = sprintf("SELECT * from IMG");
+				$query = sprintf("SELECT * from images");
 				$result = mysql_query($query);
 				
 				// ERROR CHECKING
