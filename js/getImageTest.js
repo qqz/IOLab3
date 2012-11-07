@@ -1,5 +1,5 @@
 var min_timestamp = 1351699200; // 11:00:00 AM Eastern
-var max_timestamp = 1351699220; // 11:00:20 AM Eastern
+var max_timestamp = 1351699260; // 11:01:00 AM Eastern
 var client_id = '&client_id=ecbef9870b1f4200a72dd0c95fa66941';
 
 $(document).ready(function(){
@@ -19,12 +19,6 @@ $(document).ready(function(){
 function getInstagram(minT, maxT){
 	var request = 'https://api.instagram.com/v1/media/search?lat=37.786403&lng=-122.405033&distance=1800&'+client_id+'&min_timestamp='+minT+'&max_timestamp='+maxT;
 
-	min_timestamp += 20; // increments by 20s.
-	max_timestamp += 20;
-	console.log('new min: '+min_timestamp);
-	console.log('new max: '+max_timestamp);
-
-
 	$.getJSON(request+'&callback=?', 
 		function(json){ 
 
@@ -35,40 +29,35 @@ function getInstagram(minT, maxT){
 				var image = {}; // a new object.
 				image.id = json.data[i].id; // and its information
 				image.created_time = json.data[i].created_time;
-				image.tags = json.data[i].tags;
-				image.link = json.data[i].link;
-				image.thumbURL = json.data[i].images.thumbnail.url;
-				image.imageURL = json.data[i].images.standard_resolution.url;
+				image.tags = json.data[i].tags; // tags
+				image.link = json.data[i].link; // Instagram URL
+				image.thumbURL = json.data[i].images.thumbnail.url; // 150x150
+				image.imagelowURL = json.data[i].images.low_resolution.url; // 306x306
+				image.imageURL = json.data[i].images.standard_resolution.url; // 612x612
+				image.likes = json.data[i].likes.count; // likes count
+				image.comments = json.data[i].comments.count; //comments count
 
 				// Pull out individual tags from each image's tagset
 				for (var n = 0; n < image.tags.length ; n++){
 					var tag = {};
 					tag.id = image.id;
 					tag.name = image.tags[n];
-					$('<p>INDIVIDUAL TAG '+tag.id+','+tag.name+'</p>').appendTo('#tags');
+					$('<p>'+tag.id+','+tag.name+'</p>').appendTo('#tags');
 				};
 
 				// Append image info
-				$('<p>'+image.id+',<strong>'+image.created_time+'</strong>,'+image.link+','+image.thumbURL+','+image.imageURL+'</p>').appendTo('#images');
-				// Append list of tags for image
-				$('<p>FULL TAG LIST '+image.id+','+image.tags+'</p>').appendTo('#tags');
+				$('<p><strong>'+image.id+'</strong>,<em>'+image.created_time+'</em>,'+image.link+','+image.thumbURL+','+image.imagelowURL+','+image.imageURL+','+image.likes+','+image.comments+'</p>').appendTo('#images');
 
 
 				objects.push(image); // push image onto objects array
 			};
-
-			// Finally, send your array of objects to the PHP file
-			 // $.ajax({
-				//  url: "http://chancezhao.com/insert.php",
-				//  type: "POST",
-				//  data: { objects: objects },
-				//  cache: false,
-				//  success: function () {
-				// 	console.log("SUCCESS WOOOOO");
-				//  }
-			 // });
 			
 		}); // end of getJSON
+	
+	min_timestamp += 60; // increments by 60s.
+	max_timestamp += 60;
+	console.log('new min: '+min_timestamp);
+	console.log('new max: '+max_timestamp);
 
 } // end of getInstagram
 
