@@ -1,0 +1,106 @@
+<html>
+	<head>
+
+
+	<link rel=StyleSheet href="../css/styles.css" type="text/css">
+
+	<script type="text/javascript" src="bootstrap.min.js"></script>
+	<link rel=StyleSheet href="../css/bootstrap.css" type="text/css">
+	<link rel=StyleSheet href="../css/bootstrap-responsive.css" type="text/css">
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+
+
+	<style>
+		#slider-sidebar{
+			padding:30px;
+			border:2px dashed skyblue;
+		}
+		#slider-meat{
+			background-color:orange; 
+			height:10px;
+		}
+		#slider-range{
+			background-color:black; 
+			height:10px; 
+			width:20px; 
+			position:relative;
+		}
+		#tags_div{
+			padding:20px;
+			border: 2px dashed gray;
+		}
+		#tags_container{
+			height:200px;
+			border: 2px dashed gray;
+		}
+		.tags{
+			padding:20px;
+		}
+
+	</style>
+    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+	
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var start_timestamp = 0;
+			var end_timestamp = 100;
+			var texts = ["SFGiants", "parade", "woooo", "San Francisco", "Giants", "GoGiants", "tagged", "balloons", "cats", "panda", "GiantsParade"];
+			var counts = [1042, 899, 2, 555, 123, 123, 1, 88, 3, 123, 999];
+			var tags = [];
+
+
+			createTags();
+
+			function createTags(){
+				console.log("createTags");
+				// an array of tags
+				for (var i=0; i < 11; i++){	
+					var tag = {};
+					tag.name = texts[i];
+					tag.count = counts[i];
+					tag.selected = false;
+					tags.push(tag);
+					console.log("in createTags loop");
+				}
+				displayTags();
+			}
+
+			function displayTags(){
+				// display each tag in the div #tags_container
+				for (var n=0; n < tags.length; n++){
+					$('#tags_container').append('<span class="tags">'+ tags[n].name+ ':' + tags[n].count + '</span>');
+					console.log("Creating..." + tags[n].name);
+				}
+			}
+		// when clicked
+		$('#slider-meat').click(function(e){
+			console.log(e.pageX);
+			var moveSliderTo = e.pageX;
+			$('#slider-range').css('left', e.pageX);
+			$('#slider-range').css('left', '-=40px');
+			console.log("clicked");
+		});
+		});
+	</script>
+</head>
+<body>
+	<div id="slider-sidebar">
+		<div id="slider-meat">
+			<div id="slider-range">
+			</div>
+		</div>
+	</div>
+	<div id="tags_div">
+    		<div class="btn-group">
+ 		   <button class="btn">Tags</button>
+ 		   <button class="btn">Filter by tag</button>
+  		</div>
+		
+		<div id="tags_container">
+		</div>
+	</div>
+</body>
+</html>
