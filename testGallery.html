@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <title>Test Img Gallery</title>
 
-    <link rel=StyleSheet href="css/bootstrap.css" type="text/css">
-    <link rel=StyleSheet href="css/main.css" type="text/css">
+    <link type="text/css" rel="stylesheet" media="all" href="css/bootstrap.css">
+    <link type="text/css" rel="stylesheet" media="all" href="css/main.css">
  
 </head>
 
@@ -33,7 +33,7 @@
 
 		<div class="row-fluid">
 			<div class="img-wrapper span3">
-				<a href="#instagram-link" target="_blank">
+				<a id="open-modal" href="#">
 					<span class="img-tag">#SF Parade</span>
 					<img class="img-polaroid lazy" src="assets/blank.gif" data-original="http://distilleryimage10.s3.amazonaws.com/703cae38ff5711e182e122000a1de761_6.jpg" width="160" height="160">
 					<ul class="img-stats">
@@ -75,10 +75,22 @@
 			</div>
 		</div>
 
+		<div class="modal" id="myModal">
+		  <img src='http://distilleryimage10.s3.amazonaws.com/703cae38ff5711e182e122000a1de761_7.jpg'>
+		  <div class="description">
+		    <h1>Top Tags</h1>
+		    <ul class="tag-list">
+		    	<li>tag1</li>
+		    	<li>tag2</li>
+		    </ul>
+		  </div>
+		</div>
+
 	</div>
 </body>
  <script src="js/jquery-latest.min.js"></script>
-    <script src="js/lazy-load.js" type="text/javascript"></script>
+ <script src="js/lazy-load.js" type="text/javascript"></script>
+ <script src="js/modal.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		 $(document).ready(function() {
 		 	
@@ -95,6 +107,10 @@
 				}
 			});
 
+			  $("#open-modal").click(function(e) {
+			      $("#myModal").mikesModal();
+			  });
+
 			function pickClass() {
 				var a = [0,1];
 		 		var b = Randomize(a);
@@ -108,7 +124,7 @@
 
 			function Randomize(arr) {
 		   	for(var j, x, i = arr.length; i; j = parseInt(Math.random() * i), x = arr[--i], arr[i] = arr[j], arr[j] = x);
-    		return arr;
+			return arr;
 		   };
 
 		 });

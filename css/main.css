@@ -195,3 +195,93 @@ body {
 	    -ms-transform:rotate(3deg);
         	transform:rotate(3deg);
 }
+/*Modal Styles*/
+.modal {
+	z-index: 10001;
+	position: fixed;
+	background-color: #F8F8F8;
+	left: 50%;
+	top: 50%;
+	display: none;
+	-webkit-background-clip: padding-box;
+	   -moz-background-clip: padding-box;
+   	 -khtml-background-clip: padding-box;
+	     -o-background-clip: padding-box;
+	        background-clip: padding-box;
+	-webkit-border-radius: 10px 3px 3px 10px;
+	   -moz-border-radius: 10px 3px 3px 10px;
+	 -khtml-border-radius: 10px 3px 3px 0;
+	        border-radius: 10px 3px 3px 10px;
+	-webkit-box-shadow: inset -1px 0 0 0 rgba(255, 255, 255, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+       -moz-box-shadow: inset -1px 0 0 0 rgba(255, 255, 255, 0.1), inset 0 0 0 1px rgba(255,255,255,0.1);
+        -ms-box-shadow: inset -1px 0 0 0 rgba(255, 255, 255, 0.1), inset 0 0 0 1px rgba(255,255,255,0.1);
+         -o-box-shadow: inset -1px 0 0 0 rgba(255, 255, 255, 0.1), inset 0 0 0 1px rgba(255,255,255,0.1);
+            box-shadow: inset -1px 0 0 0 rgba(255, 255, 255, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+.modal img {
+  float: left;
+	-webkit-border-radius: 3px 0 0 3px;
+	   -moz-border-radius: 3px 0 0 3px;
+	 -khtml-border-radius: 3px 0 0 3px;
+	        border-radius: 3px 0 0 3px;
+}
+.modal .description {
+  width: 300px;
+  float: right;
+  text-align: center;
+}
+.modal .description h1{
+	position: relative;
+	height: 75px;
+	margin: -15px 0 0;
+	padding: 45px 0 0;
+	border-bottom: 1px solid #EAEAEA;
+	border-bottom-color: rgba(0, 0, 0, 0.05);
+	-webkit-box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.8);
+	-moz-box-shadow: inset 0 -1px 0 rgba(255,255,255,0.8);
+	-ms-box-shadow: inset 0 -1px 0 rgba(255,255,255,0.8);
+	-o-box-shadow: inset 0 -1px 0 rgba(255,255,255,0.8);
+	box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.8);
+}
+.modal .tag-list {
+	padding: 0;
+	margin: 20px 0 0 0;
+}
+.modal .tag-list li{
+	padding: 10px 0 11px 0;
+	margin: 0;
+	color: #444;
+	font-size: 14px;
+	line-height: 16px;
+}
+.modal ul {
+	list-style: none;
+}
+.modal .close {
+  position: absolute;
+  margin-top: 3px;
+  right: 10px;
+  cursor: pointer;
+}
+#loading-modal {
+  position: absolute;
+  z-index: 10000;
+  width: 220px;
+  height: 220px;
+  top: 50%;
+  left: 50%;
+  margin-top: -110px;
+  margin-left: -110px;
+  background-color: #333;
+  border-radius: 20px;
+}
+#the-lights {
+  background-color: #000;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  opacity: 0.9;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+}
