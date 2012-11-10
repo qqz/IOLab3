@@ -181,3 +181,17 @@ body {
 	     -o-transition-delay: 0.1s;
 	        transition-delay: 0.1s;
 }
+.img-hover1 {
+	-webkit-transform:rotate(-3deg); 
+	   -moz-transform:rotate(-3deg);
+	     -o-transform:rotate(-3deg);
+	    -ms-transform:rotate(-3deg);
+	        transform:rotate(-3deg);
+}
+.img-hover2 {
+	-webkit-transform:rotate(3deg); 
+	   -moz-transform:rotate(3deg);
+	     -o-transform:rotate(3deg);
+	    -ms-transform:rotate(3deg);
+        	transform:rotate(3deg);
+}
