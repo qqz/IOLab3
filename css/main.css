@@ -13,6 +13,67 @@ body {
 	     -o-box-shadow: 0 1px 1px rgba(0,0,0,.24), 0 1px 5px rgba(0,0,0,.05);
 	        box-shadow: 0 1px 1px rgba(0, 0, 0, .24), 0 1px 5px rgba(0, 0, 0, .05);
 }
+#nav-right {
+	list-style: none;
+	position: fixed;
+	top: 250px;
+	right: 35px;
+}
+#nav-right li {
+	margin: 0 0 15px 0;
+}
+.header {
+  margin: auto 0;
+  overflow: hidden;
+  background: #110000;
+  text-transform: lowercase;
+  position: relative; 
+}
+.header a {
+	-webkit-transition: all 0.4s ease-out;
+	-moz-transition: all 0.4s ease-out;
+	-ms-transition: all 0.4s ease-out;
+	-o-transition: all 0.4s ease-out;
+	transition: all 0.4s ease-out;
+	padding: 0.8em 0.5em; 
+} 
+.header a:hover, .header a:focus {
+    color: #fff; 
+}
+.header {
+	line-height: 1;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 99;
+	padding: 0 0.5em; 
+}
+.header:hover a {
+	padding: 1.5em 0.5em; 
+} 
+.nav {
+	margin: 0;
+	clear: none;
+	max-height: none;
+	text-align: center;
+}
+.nav {
+	overflow: hidden;
+	background: #100;
+}
+.nav li {
+	display: inline-block;
+}
+.nav li a {
+	background: none !important;
+	padding: 0.8em 0.5em;
+}
+.nav a {
+	text-decoration: none;
+	display: block;
+	padding: 0.8em;
+}
 .masthead {
 	min-height: 75px;
 	text-align: center;
