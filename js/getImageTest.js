@@ -21,11 +21,10 @@ function getInstagram(minT, maxT){
 
 	$.getJSON(request+'&callback=?', 
 		function(json){ 
-
+			console.log(json);
 			var objects = []; // an array of objects
 
 			for (var i = 0;i<json.data.length;i++) {
-
 				var image = {}; // a new object.
 				image.id = json.data[i].id; // and its information
 				image.created_time = json.data[i].created_time;
@@ -56,8 +55,6 @@ function getInstagram(minT, maxT){
 	
 	min_timestamp += 60; // increments by 60s.
 	max_timestamp += 60;
-	console.log('new min: '+min_timestamp);
-	console.log('new max: '+max_timestamp);
 
 } // end of getInstagram
 
