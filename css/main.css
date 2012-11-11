@@ -47,11 +47,13 @@ body {
 	left: 0;
 	right: 0;
 	z-index: 99;
-	padding: 0 0.5em; 
+	padding: 1em 1em; 
 }
-.header:hover a {
+
+/*.header:hover a {
 	padding: 1.5em 0.5em; 
-} 
+} */
+
 .nav {
 	margin: 0;
 	clear: none;
@@ -60,10 +62,10 @@ body {
 }
 .nav {
 	overflow: hidden;
-	background: #100;
+	background: #F2552C;
 }
 .nav li {
-	display: inline-block;
+/*	display: inline-block;*/
 }
 .nav li a {
 	background: none !important;
@@ -74,6 +76,11 @@ body {
 	display: block;
 	padding: 0.8em;
 }
+
+#time {
+	color: blue;
+}
+
 .masthead {
 	min-height: 75px;
 	text-align: center;

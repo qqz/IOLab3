@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Test Img Gallery</title>
 
+    <link type="text/css" rel="stylesheet" media="all" href="css/jquery-ui-1.9.1.custom.css">
     <link type="text/css" rel="stylesheet" media="all" href="css/bootstrap.css">
     <link type="text/css" rel="stylesheet" media="all" href="css/main.css">
  
@@ -19,12 +20,15 @@
 		</ul>
 		<header role="banner" class="header">
 			<nav>
-				<ul class="nav" id="nav">
+<!-- 				<ul class="nav" id="nav">
 					<li><a href=""><img src="assets/nav-dot.png" alt="Link"></a></li>
 					<li><a href=""><img src="assets/nav-dot.png" alt="Link"></a></li>
 					<li><a href=""><img src="assets/nav-dot.png" alt="Link"></a></li>
 					<li><a href=""><img src="assets/nav-dot.png" alt="Link"></a></li>
-               </ul>
+					
+               </ul> -->
+               <div class="nav" id="slider"></div>
+               <div id="time">current time</div>
 			</nav>
 		</header>
 		<div class="masthead">
@@ -89,8 +93,44 @@
 	</div>
 </body>
  <script src="js/jquery-latest.min.js"></script>
+ <script src="js/jquery-ui-1.9.1.custom.min.js"></script>
  <script src="js/lazy-load.js" type="text/javascript"></script>
  <script src="js/modal.min.js" type="text/javascript"></script>
+ <script>
+	 $(function() {
+	     var slider = $('#slider'); 
+	     var time = $('#time');
+
+	     slider.slider({
+	     	min: 1351699205,
+	     	max: 1351728113,
+	     	value: 1351709210,
+
+	     	start: function(event,ui) {
+	     		var value = slider.slider('value');
+	     		time.text(value);
+	     	},
+
+	     	slide: function(event,ui) {
+	     		var value = slider.slider('value');
+	     		time.text(value);
+	     	},
+
+	     	// slide: function(event, ui) {
+	     	// 	var value = slider.slider('value');
+	     	// 	time.css('left',value).text(ui.value);
+
+	     	// };
+
+
+	     });
+
+	     
+
+	     
+
+	 });
+ </script>
 	<script type="text/javascript">
 		 $(document).ready(function() {
 		 	
