@@ -12,10 +12,18 @@
 
 <body>
 	<div class="container">
+		<div class="tag-box">
+			<strong>Tag filters</strong>
+			<ul id="tag-list">
+				<li>#tag1</li>
+				<li>#tag2</li>
+			</ul>
+		</div>
 		<header role="banner" class="header">
 			<nav>
-               <div class="nav" id="slider"></div>
-               <div id="time">current time</div>
+                <div class="nav" id="slider"></div>
+                <div id="time">current time</div>
+                <button id="tag-button">tag filters</button>
 			</nav>
 		</header>
 		<div class="masthead">
@@ -56,29 +64,7 @@
  <script src="js/jquery-ui-1.9.1.custom.min.js"></script>
  <script src="js/lazy-load.js" type="text/javascript"></script>
  <script src="js/modal.min.js" type="text/javascript"></script>
- <script>
-	 $(function() {
-	     var slider = $('#slider'); 
-	     var time = $('#time');
-
-	     slider.slider({
-	     	min: 1351699205,
-	     	max: 1351728113,
-	     	value: 1351709210,
-
-	     	start: function(event,ui) {
-	     		var value = slider.slider('value');
-	     		time.text(value);
-	     	},
-
-	     	slide: function(event,ui) {
-	     		var value = slider.slider('value');
-	     		time.text(value);
-	     	},
-
-	     });
-	 });
- </script>
+ <script src="js/testGallery.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		 $(document).ready(function() {
 		 	
