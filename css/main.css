@@ -13,15 +13,6 @@ body {
 	     -o-box-shadow: 0 1px 1px rgba(0,0,0,.24), 0 1px 5px rgba(0,0,0,.05);
 	        box-shadow: 0 1px 1px rgba(0, 0, 0, .24), 0 1px 5px rgba(0, 0, 0, .05);
 }
-#nav-right {
-	list-style: none;
-	position: fixed;
-	top: 250px;
-	right: 35px;
-}
-#nav-right li {
-	margin: 0 0 15px 0;
-}
 .header {
   margin: auto 0;
   overflow: hidden;
@@ -30,16 +21,18 @@ body {
   position: relative; 
 }
 .header a {
+	padding: 0.8em 0.5em; 
+} 
+.header {
 	-webkit-transition: all 0.4s ease-out;
 	-moz-transition: all 0.4s ease-out;
 	-ms-transition: all 0.4s ease-out;
 	-o-transition: all 0.4s ease-out;
 	transition: all 0.4s ease-out;
-	padding: 0.8em 0.5em; 
-} 
-.header a:hover, .header a:focus {
-    color: #fff; 
 }
+.header:hover {
+	padding: 2em 1em; 
+} 
 .header {
 	line-height: 1;
 	position: fixed;
@@ -49,11 +42,6 @@ body {
 	z-index: 99;
 	padding: 1em 1em; 
 }
-
-/*.header:hover a {
-	padding: 1.5em 0.5em; 
-} */
-
 .nav {
 	margin: 0;
 	clear: none;
@@ -64,23 +52,9 @@ body {
 	overflow: hidden;
 	background: #F2552C;
 }
-.nav li {
-/*	display: inline-block;*/
-}
-.nav li a {
-	background: none !important;
-	padding: 0.8em 0.5em;
-}
-.nav a {
-	text-decoration: none;
-	display: block;
-	padding: 0.8em;
-}
-
 #time {
 	color: blue;
 }
-
 .masthead {
 	min-height: 75px;
 	text-align: center;
@@ -291,4 +265,7 @@ body {
   top: 0;
   left: 0;
   z-index: 10000;
+}
+.standard-url, .img-id{
+	display: none;
 }

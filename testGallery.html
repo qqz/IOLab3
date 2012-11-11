@@ -12,21 +12,8 @@
 
 <body>
 	<div class="container">
-		<ul id="nav-right">
-			<li><a href=""><img src="assets/nav-dot.png" alt="Link"></a></li>
-			<li><a href=""><img src="assets/nav-dot.png" alt="Link"></a></li>
-			<li><a href=""><img src="assets/nav-dot.png" alt="Link"></a></li>
-			<li><a href=""><img src="assets/nav-dot.png" alt="Link"></a></li>
-		</ul>
 		<header role="banner" class="header">
 			<nav>
-<!-- 				<ul class="nav" id="nav">
-					<li><a href=""><img src="assets/nav-dot.png" alt="Link"></a></li>
-					<li><a href=""><img src="assets/nav-dot.png" alt="Link"></a></li>
-					<li><a href=""><img src="assets/nav-dot.png" alt="Link"></a></li>
-					<li><a href=""><img src="assets/nav-dot.png" alt="Link"></a></li>
-					
-               </ul> -->
                <div class="nav" id="slider"></div>
                <div id="time">current time</div>
 			</nav>
@@ -36,7 +23,10 @@
 		</div>
 
 		<div class="row-fluid">
+
 			<div class="img-wrapper span3">
+				<span class="img-id">03cae38ff5711e182e1220</span>
+				<span class="standard-url">http://distilleryimage10.s3.amazonaws.com/703cae38ff5711e182e122000a1de761_6.jpg</span>
 				<a id="open-modal" href="#">
 					<span class="img-tag">#SF Parade</span>
 					<img class="img-polaroid lazy" src="assets/blank.gif" data-original="http://distilleryimage10.s3.amazonaws.com/703cae38ff5711e182e122000a1de761_6.jpg" width="160" height="160">
@@ -46,41 +36,11 @@
 					</ul>
 				</a>
 			</div>
-			<div class="img-wrapper span3">
-				<a href="#instagram-link" target="_blank">
-					<span class="img-tag">#Go Giants</span>
-					<img class="img-polaroid lazy" src="assets/blank.gif" data-original="http://distilleryimage9.s3.amazonaws.com/17540238017511e28a0c22000a1e9e6b_6.jpg" width="160" height="160">
-					<ul class="img-stats">
-						<li class="stat-likes"><b><span>2</span></b></li>
-						<li class="stat-comments"><b><span>0</span></b></li>
-					</ul>
-				</a>
-			</div>
-			<div class="img-wrapper span3">
-				<a href="#instagram-link" target="_blank">
-					<span class="img-tag">#SF Giants</span>
-					<img class="img-polaroid lazy" src="assets/blank.gif" data-original="http://distilleryimage4.s3.amazonaws.com/42b986d8ffb211e18c8422000a1cbdd4_6.jpg" width="160" height="160">
-					<ul class="img-stats">
-						<li class="stat-likes"><b><span>2</span></b></li>
-						<li class="stat-comments"><b><span>0</span></b></li>
-					</ul>
-				</a>
-			</div>
 
-			<div class="img-wrapper span3">
-				<a href="#instagram-link" target="_blank">
-					<span class="img-tag">#Player1</span>
-					<img class="img-polaroid lazy" src="assets/blank.gif" data-original="http://distillery.s3.amazonaws.com/media/2011/10/29/a0cfc1c9f7bf4a678fc9b31943e59d9b_6.jpg" width="160" height="160">
-					<ul class="img-stats" width="160" height="160">
-						<li class="stat-likes"><b><span>2</span></b></li>
-						<li class="stat-comments"><b><span>0</span></b></li>
-					</ul>
-				</a>
-			</div>
 		</div>
 
-		<div class="modal" id="myModal">
-		  <img src='http://distilleryimage10.s3.amazonaws.com/703cae38ff5711e182e122000a1de761_7.jpg'>
+		<div class="modal" id="img-modal">
+		  <img src=''>
 		  <div class="description">
 		    <h1>Top Tags</h1>
 		    <ul class="tag-list">
@@ -116,19 +76,7 @@
 	     		time.text(value);
 	     	},
 
-	     	// slide: function(event, ui) {
-	     	// 	var value = slider.slider('value');
-	     	// 	time.css('left',value).text(ui.value);
-
-	     	// };
-
-
 	     });
-
-	     
-
-	     
-
 	 });
  </script>
 	<script type="text/javascript">
@@ -147,8 +95,14 @@
 				}
 			});
 
-			  $("#open-modal").click(function(e) {
-			      $("#myModal").mikesModal();
+			$(".img-wrapper").click(function(e) {
+				var id = $(this).children('.img-id').text();
+				var url = $(this).children('.standard-url').text();
+				$('#img-modal img').attr('src', url);
+
+				//PHP pass id to db, and get tags
+
+				$("#img-modal").mikesModal();
 			  });
 
 			function pickClass() {
