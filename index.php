@@ -31,54 +31,25 @@
 			<img src="assets/sf-giants-logo.png" alt="SF Giants Logo" width="457" height="246">
 		</div>
 
-		<div id="image-wrapper">
-		<div class="row-fluid">
-			<div class="img-wrapper span3">
-				<a id="open-modal" href="#">
-					<span class="img-tag">#SF Parade</span>
-					<img class="img-polaroid lazy" src="assets/blank.gif" data-original="http://distilleryimage10.s3.amazonaws.com/703cae38ff5711e182e122000a1de761_6.jpg" width="160" height="160">
-					<ul class="img-stats">
-						<li class="stat-likes"><b><span>2</span></b></li>
-						<li class="stat-comments"><b><span>0</span></b></li>
-					</ul>
-				</a>
+		<div id="image-container">
+			<div class="row-fluid">
+				<div class="img-wrapper span3">
+					<span class="img-id">03cae38ff5711e182e1220</span>
+					<span class="standard-url">http://distilleryimage10.s3.amazonaws.com/703cae38ff5711e182e122000a1de761_6.jpg</span>
+					<a id="open-modal" href="">
+						<span class="img-tag">#SF Parade</span>
+						<img class="img-polaroid lazy" src="assets/blank.gif" data-original="http://distilleryimage10.s3.amazonaws.com/703cae38ff5711e182e122000a1de761_6.jpg" width="160" height="160">
+						<ul class="img-stats">
+							<li class="stat-likes"><b><span>2</span></b></li>
+							<li class="stat-comments"><b><span>0</span></b></li>
+						</ul>
+					</a>
 			</div>
-			<div class="img-wrapper span3">
-				<a href="#instagram-link" target="_blank">
-					<span class="img-tag">#Go Giants</span>
-					<img class="img-polaroid lazy" src="assets/blank.gif" data-original="http://distilleryimage9.s3.amazonaws.com/17540238017511e28a0c22000a1e9e6b_6.jpg" width="160" height="160">
-					<ul class="img-stats">
-						<li class="stat-likes"><b><span>2</span></b></li>
-						<li class="stat-comments"><b><span>0</span></b></li>
-					</ul>
-				</a>
-			</div>
-			<div class="img-wrapper span3">
-				<a href="#instagram-link" target="_blank">
-					<span class="img-tag">#SF Giants</span>
-					<img class="img-polaroid lazy" src="assets/blank.gif" data-original="http://distilleryimage4.s3.amazonaws.com/42b986d8ffb211e18c8422000a1cbdd4_6.jpg" width="160" height="160">
-					<ul class="img-stats">
-						<li class="stat-likes"><b><span>2</span></b></li>
-						<li class="stat-comments"><b><span>0</span></b></li>
-					</ul>
-				</a>
-			</div>
-
-			<div class="img-wrapper span3">
-				<a href="#instagram-link" target="_blank">
-					<span class="img-tag">#Player1</span>
-					<img class="img-polaroid lazy" src="assets/blank.gif" data-original="http://distillery.s3.amazonaws.com/media/2011/10/29/a0cfc1c9f7bf4a678fc9b31943e59d9b_6.jpg" width="160" height="160">
-					<ul class="img-stats" width="160" height="160">
-						<li class="stat-likes"><b><span>2</span></b></li>
-						<li class="stat-comments"><b><span>0</span></b></li>
-					</ul>
-				</a>
 			</div>
 		</div>
-		</div>
 
-		<div class="modal" id="myModal">
-		  <img src='http://distilleryimage10.s3.amazonaws.com/703cae38ff5711e182e122000a1de761_7.jpg'>
+		<div class="modal" id="img-modal">
+		  <img src=''>
 		  <div class="description">
 		    <h1>Top Tags</h1>
 		    <ul class="tag-list">
@@ -137,7 +108,7 @@
 						// create new row-fluid div
 
 						row_counter++;
-						$('#image-wrapper').append('<div class="row-fluid" id="row'+row_counter+'"></div>');
+						$('#image-container').append('<div class="row-fluid" id="row'+row_counter+'"></div>');
 						console.log("Row incremented: ");
 						console.log(row_counter);
 					}
@@ -163,8 +134,20 @@
 		 		$("img.lazy").lazyload({
 			     		effect: "fadeIn"
 				});
-			
 
+		 	//create modal
+			$(".img-wrapper").click(function(e) {
+				var id = $(this).children('.img-id').text();
+				var url = $(this).children('.standard-url').text();
+				$('#img-modal img').attr('src', url);
+
+				//PHP pass id to db, and get tags
+
+				$("#img-modal").mikesModal();
+				return false;
+			  });
+			
+		 	// Img hover effect
 			$(".img-wrapper img").on({
 				mouseenter: function () {
 					$(this).addClass(pickClass());
@@ -173,11 +156,6 @@
 					$(this).removeClass("img-hover1 img-hover2");
 				}
 			});
-
-			  $("#open-modal").click(function(e) {
-			      $("#myModal").mikesModal();
-			  });
-			
 
 			function pickClass() {
 				var a = [0,1];
