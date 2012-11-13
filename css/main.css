@@ -17,7 +17,7 @@ body {
   margin: auto 0;
   overflow: hidden;
   background: #110000;
-  text-transform: lowercase;
+  /*text-transform: lowercase;*/
   position: relative; 
 }
 .header {
