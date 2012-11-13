@@ -20,9 +20,6 @@ body {
   text-transform: lowercase;
   position: relative; 
 }
-.header a {
-	padding: 0.8em 0.5em; 
-} 
 .header {
 	-webkit-transition: all 0.4s ease-out;
 	-moz-transition: all 0.4s ease-out;
@@ -31,7 +28,7 @@ body {
 	transition: all 0.4s ease-out;
 }
 .header:hover {
-	padding: 2em 1em; 
+	padding: 1.2em 1em; 
 } 
 .header {
 	line-height: 1;
@@ -39,51 +36,79 @@ body {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	z-index: 99;
-	padding: 1em 1em; 
+	z-index: 1000;
+	padding: .6em .6em; 
 }
-.nav {
+.header a {
+	padding: .5em .5em; 
+}
+nav {
 	margin: 0 auto;
 	width: 940px;
-	clear: none;
-	max-height: none;
+}
+.nav {
+	width: 85%;
+	float: left;
 	text-align: center;
 	overflow: hidden;
 	background: #F2552C;
+	margin-top: 6px;
 }
 #time {
+	color: #ffffff;
 	padding: 10px;
 	width: 150px;
 	position: fixed;
-	bottom: 120px;
+	bottom: 60px;
 	left: 10px;
-	background-color: #ccc;
-	border: 1px solid #000;
+	background: #110000;
+	border: 1px solid #CCC;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding;
+	background-clip: padding-box;
 }
 
 #tag-button {
-	background-color: #ccc;
-	border: 1px solid #000;
-	float: right;
+	color: #ffffff;
+	padding: 6px 6px 6px 10px;
+	margin-left: 40px;
+	width: 72px;
+	background-color: #000;
+	border-left: 1px solid #ccc;
+	float: left;
+	cursor: pointer;
+	text-transform: uppercase;
 }
-
 .tag-box {
+	color: #ffffff;
 	padding: 10px;
-	width: 150px;
-	max-height: 200px;
+	width: 165px;
 	position: fixed;
-	bottom: 120px;
+	bottom: 60px;
 	right: 10px;
-	background-color: #ccc;
-	border: 1px solid #000;
 	overflow: auto;
 	display: none;
+	z-index: 1001;
+	background: #110000;
+	border: 1px solid #CCC;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	-webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding;
+	background-clip: padding-box;
 }
-
-#tag-list {
-
-}
-
 .masthead {
 	min-height: 75px;
 	text-align: center;
