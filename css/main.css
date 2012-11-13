@@ -29,7 +29,7 @@ body {
 	transition: all 0.4s ease-out;
 }
 .header:hover {
-	padding: 1.2em 1em; 
+	/*padding: 1.2em 1em; */
 } 
 .header {
 	line-height: 1;
@@ -65,7 +65,7 @@ nav {
 	padding: 10px;
 	width: 150px;
 	position: fixed;
-	bottom: 60px;
+	bottom: 80px;
 	left: 10px;
 	background: #110000;
 	border: 1px solid #CCC;
@@ -114,7 +114,7 @@ nav {
 
 #tag-button {
 	color: #ffffff;
-	padding: 6px 6px 6px 10px;
+	padding: 6px 4px 4px 4px;
 	margin-top: -23px;
 	width: 70px;
 	background-color: #000;
