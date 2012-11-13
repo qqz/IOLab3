@@ -12,7 +12,7 @@ $(function() {
         create: function(event,ui) {
             selected_time = $(this).slider('value');
             // convert time from Unix to regular AM/PM
-            var date = new Date(selected_time*1000);
+            var date = new Date((selected_time-3600)*1000);
             var hours = date.getHours();
             var minutes = date.getMinutes();
             var ampm = "AM";
@@ -29,10 +29,10 @@ $(function() {
 
         // set time on slide
     	slide: function(event,ui) {
-            selected_time = $(this).slider('value');
+            selected_time = ui.value;
             console.log(selected_time);
             // convert time from Unix to regular AM/PM
-            var date = new Date(selected_time*1000);
+            var date = new Date((selected_time-3600)*1000);
             var hours = date.getHours();
             var minutes = date.getMinutes();
             var ampm = "AM";
