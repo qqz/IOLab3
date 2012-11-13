@@ -1,24 +1,30 @@
-// function formatAMPM(date) {
-//   var hours = date.getHours();
-//   var minutes = date.getMinutes();
-//   var ampm = hours >= 12 ? 'pm' : 'am';
-//   var hours = hours % 12;
-//   hours = hours ? hours : 12; // the hour '0' should be '12'
-//   minutes = minutes < 10 ? '0'+minutes : minutes;
-//   strTime = hours + ':' + minutes + ' ' + ampm;
-//   return strTime;
-// };
-
 $(function() {
 
     $("#slider").slider({
     	min: 1351699200,
     	max: 1351728000,
     	value: 1351699200,
-        // step: 1800, // restrict slider to 30 minute intervals
+        step: 1800, // restrict slider to 30 minute intervals
+
+        create: function(event,ui) {
+            console.log($(this).slider('value'));
+            var date = new Date($(this).slider('value')*1000);
+            var hours = date.getHours();
+            var minutes = date.getMinutes();
+            var ampm = "AM";
+            if (hours > 11) { ampm = "PM" }
+            if (hours > 12) { hours = hours - 12; }
+            if (hours == 0) { hours = 12; }
+            if (minutes < 10) { minutes = "0" + minutes }
+            if (minutes == 0) { minutes = "00" } 
+            var currentTime = hours+":"+minutes+ampm;
+
+            // update #time div
+            $('#time').html('Time: '+currentTime);
+        },
 
     	slide: function(event,ui) {
-
+            console.log($(this).slider('value'));
             // convert time from Unix to regular AM/PM
             var date = new Date(ui.value*1000);
             var hours = date.getHours();
@@ -33,8 +39,8 @@ $(function() {
 
             // update #time div
             $('#time').html('Time: '+currentTime);
-
     	}
+
     });
 
 });
@@ -47,3 +53,24 @@ $("#tag-button").toggle(
     $(".tag-box").fadeOut(250);
   }
 );
+
+// This sets value of the slider based on a click
+// right now, clicking the time div updates it to a specific time 1351710000
+$('#time').live('click', function(){
+
+    $("#slider").slider('value', 1351710000);
+
+    var date = new Date($("#slider").slider('value')*1000);
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = "AM";
+    if (hours > 11) { ampm = "PM" }
+    if (hours > 12) { hours = hours - 12; }
+    if (hours == 0) { hours = 12; }
+    if (minutes < 10) { minutes = "0" + minutes }
+    if (minutes == 0) { minutes = "00" } 
+    var currentTime = hours+":"+minutes+ampm;
+
+    // update #time div
+    $('#time').html('Time: '+currentTime);
+});
