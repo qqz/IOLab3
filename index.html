@@ -1,1 +1,49 @@
-this page is coming soon
+	// Load img from DB
+		function loadFromDB(start_time){
+					start_time = start_time || "1351699200";
+					var col_counter = 0;
+					var col_count_mod = 4; // 4 per column, +1
+					var row_counter = 0;
+				
+				// connect to database with PHP
+				<?php
+
+					$dbhost = 'localhost';
+					$dbuser = 'chancezh_guest';
+					$dbpasswd = 'enter669%';
+					$db = "chancezh_iolab3";
+
+					$dbh = mysql_connect($dbhost, $dbuser, $dbpasswd) or die("Unable to connect to SQL server");
+					$my_db = @mysql_select_db($db) or die("Unable to select database");
+				
+					$query = sprintf("SELECT * FROM images LIMIT 100");
+					$result = mysql_query($query);
+					
+					// ERROR CHECKING
+					if (!$result) {
+					    $message  = 'Invalid query: ' . mysql_error() . "\n";
+					    $message .= 'Whole query: ' . $query;
+					    die($message);
+					}
+
+					// for each result, add thumbnail picture to the page
+					while ($row = mysql_fetch_assoc($result)) { ?>
+
+						// for every four columns we want to create new row-fluid
+						if (col_counter % col_count_mod == 0){
+							// create new row-fluid div
+
+							row_counter++;
+							$('#image-container').append('<div class="row-fluid" id="row'+row_counter+'"></div>');
+						}
+						
+						var row_div = '#row' + row_counter;
+
+					$(row_div).append('<div class="img-wrapper span3"><span class="img-id"><?php echo $row['id']; ?></span><span class="standard-url"><?php echo $row['standard_url']; ?></span><span class="created_time"><?php echo $row['created_time']; ?></span><a id="open-modal" href="#"><span class="img-tag">#SF Parade</span><img class="img-polaroid lazy" src="assets/blank.gif" data-original="<?php echo $row['thumbnail_url']; ?>" width="160" height="160"><ul class="img-stats"><li class="stat-likes"><b><span><?php echo $row['like_count']; ?></span></b></li><li class="stat-comments"><b><span><?php echo $row['comment_count']; ?></span></b></li></ul></a></div>');
+					col_counter++;
+
+	    				<?	
+					} // end of while			
+				?>
+				
+				}	// end of loadFromDB

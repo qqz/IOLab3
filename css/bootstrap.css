@@ -199,6 +199,10 @@ a:hover {
      -moz-transition: all 0.15s ease-out 0.1s;
        -o-transition: all 0.15s ease-out 0.1s;
           transition: all 0.15s ease-out 0.1s;
+  -webkit-backface-visibility: hidden;
+     -moz-backface-visibility: hidden;
+      -ms-backface-visibility: hidden;
+          backface-visibility: hidden; 
 }
 
 .img-circle {

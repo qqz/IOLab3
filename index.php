@@ -50,68 +50,25 @@
  <script src="js/jquery-ui-1.9.1.custom.min.js"></script>
  <script src="js/lazy-load.js" type="text/javascript"></script>
  <script src="js/modal.min.js" type="text/javascript"></script>
- <script src="js/testGallery.js" type="text/javascript"></script>
 	<script type="text/javascript">
+		var selected_time = 1351699200;
+		var col_counter = 0;
+		var col_count_mod = 4; // 4 per column, +1
+		var row_counter = 0;
 		$(document).ready(function() {
 
-			loadFromDB(1351699200);
-			function loadFromDB(start_time){
-				start_time = start_time || "1351699200";
-				var col_counter = 0;
-				var col_count_mod = 4; // 4 per column, +1
-				var row_counter = 0;
-			
-			// connect to database with PHP
-			<?php
+			// Load intial imgs
+			load_from_DB(selected_time);
 
-				$dbhost = 'localhost';
-				$dbuser = 'chancezh_guest';
-				$dbpasswd = 'enter669%';
-				$db = "chancezh_iolab3";
-
-				$dbh = mysql_connect($dbhost, $dbuser, $dbpasswd) or die("Unable to connect to SQL server");
-				$my_db = @mysql_select_db($db) or die("Unable to select database");
-				//$startTime = echo "<script>document.write(Gstart);</script>";
-				// Database query code from:
-				// http://php.net/manual/en/function.mysql-query.php 
-
-				// Select ALL images for now
-				$query = sprintf("SELECT * from images WHERE created_time > '1351699200' LIMIT 1000");
-				$result = mysql_query($query);
-				
-				// ERROR CHECKING
-				if (!$result) {
-				    $message  = 'Invalid query: ' . mysql_error() . "\n";
-				    $message .= 'Whole query: ' . $query;
-				    die($message);
+			// Img hover effect
+			$(".img-wrapper img").on({
+				mouseenter: function () {
+					$(this).addClass(pickClass());
+				},
+			  	mouseleave: function () {
+					$(this).removeClass("img-hover1 img-hover2");
 				}
-
-				// for each result, add thumbnail picture to the page
-				while ($row = mysql_fetch_assoc($result)) { ?>
-
-					// for every four columns we want to create new row-fluid
-					if (col_counter % col_count_mod == 0){
-						// create new row-fluid div
-
-						row_counter++;
-						$('#image-container').append('<div class="row-fluid" id="row'+row_counter+'"></div>');
-					}
-					
-					var row_div = '#row' + row_counter;
-
-				$(row_div).append('<div class="img-wrapper span3"><span class="img-id"><?php echo $row['id']; ?></span><span class="standard-url"><?php echo $row['standard_url']; ?></span><span class="created_time"><?php echo $row['created_time']; ?></span><a id="open-modal" href="#"><span class="img-tag">#SF Parade</span><img class="img-polaroid lazy" src="assets/blank.gif" data-original="<?php echo $row['thumbnail_url']; ?>" width="160" height="160"><ul class="img-stats"><li class="stat-likes"><b><span><?php echo $row['like_count']; ?></span></b></li><li class="stat-comments"><b><span><?php echo $row['comment_count']; ?></span></b></li></ul></a></div>');
-				col_counter++;
-
-    				<?	
-				} // end of while			
-			?>
-			
-			}	// end of loadFromDB
-			 
-			// loadImages used to start here
-		 		$("img.lazy").lazyload({
-			     		effect: "fadeIn"
-				});
+			});
 
 		 	//create modal
 			$(".img-wrapper").click(function(e) {
@@ -125,33 +82,126 @@
 				$("#img-modal").mikesModal();
 				return false;
 			  });
-			
-		 	// Img hover effect
-			$(".img-wrapper img").on({
-				mouseenter: function () {
-					$(this).addClass(pickClass());
-				},
-			  	mouseleave: function () {
-					$(this).removeClass("img-hover1 img-hover2");
+
+			// Opan tag box
+			$("#tag-button").toggle(
+			  function(){
+			    $(".tag-box").fadeIn(250);
+			  },
+			  function(){
+			    $(".tag-box").fadeOut(250);
+			  }
+			);
+
+			// Slider functionality
+			$(function() {
+
+		    $("#slider").slider({
+		    	min: 1351699200, // 8:00 AM
+		    	max: 1351728000, // 4:00 PM
+		    	value: 1351699200,
+		        step: 1800, // restrict slider to 30 minute intervals
+
+		        // set initial time
+		        create: function(event,ui) {
+		            selected_time = $(this).slider('value');
+		            // convert time from Unix to regular AM/PM
+		            var date = new Date(selected_time*1000);
+		            var hours = date.getHours();
+		            var minutes = date.getMinutes();
+		            var ampm = "AM";
+		            if (hours > 11) { ampm = "PM" }
+		            if (hours > 12) { hours = hours - 12; }
+		            if (hours == 0) { hours = 12; }
+		            if (minutes < 10) { minutes = "0" + minutes }
+		            if (minutes == 0) { minutes = "00" } 
+		            var currentTime = hours+":"+minutes+ampm;
+
+		            // update #time div
+		            $('#time').html('Time: '+currentTime);
+		        },
+
+		        // set time on slide
+		    	stop: function(event,ui) {
+		            selected_time = $(this).slider('value');
+
+		            // convert time from Unix to regular AM/PM
+		            var date = new Date(selected_time*1000);
+		            var hours = date.getHours();
+		            var minutes = date.getMinutes();
+		            var ampm = "AM";
+		            if (hours > 11) { ampm = "PM" }
+		            if (hours > 12) { hours = hours - 12; }
+		            if (hours == 0) { hours = 12; }
+		            if (minutes < 10) { minutes = "0" + minutes }
+		            if (minutes == 0) { minutes = "00" } 
+		            var currentTime = hours+":"+minutes+ampm;
+
+		           	refresh_images(selected_time);
+
+		            // update #time div
+		            $('#time').html('Time: '+currentTime);
+		    	}
+
+		    });
+		});
+
+	});
+	
+	// load new images from DB based on timestamp
+	function load_from_DB(selected_time){
+		$.ajax({
+	       type: "POST",
+	       dataType: "json",                                        
+	       url: "getData.php",
+	       data: ({ start_time: selected_time }),
+	       success: function(data) {
+			// for each result, add thumbnail picture to the page
+	       	for (var i = 0;i<data.rows.length;i++) {
+   				// for every four columns we want to create new row-fluid
+				if (col_counter % col_count_mod == 0){
+					// create new row-fluid div
+
+					row_counter++;
+					$('#image-container').append('<div class="row-fluid" id="row'+row_counter+'"></div>');
 				}
-			});
+				var row_div = '#row' + row_counter;
 
-			function pickClass() {
-				var a = [0,1];
-		 		var b = Randomize(a);
-		 		var c = '';
-		 		if (b[0]==0){
-		 			c = 'img-hover1';
-		 		}else{
-		 			c = 'img-hover2';
-		 		}return c;
-			};
+				$(row_div).append('<div class="img-wrapper span3"><span class="img-id">'+data.rows[i].image_id+'</span><span class="standard-url">'+data.rows[i].standard_url+'</span><span class="created_time">'+data.rows[i].created_time+'</span><a id="open-modal" href="#"><span class="img-tag">#SF Parade</span><img class="img-polaroid lazy" src="assets/blank.gif" data-original="'+data.rows[i].thumbnail_url+'" width="160" height="160"><ul class="img-stats"><li class="stat-likes"><b><span>'+data.rows[i].like_count+'</span></b></li><li class="stat-comments"><b><span>'+data.rows[i].comment_count+'</span></b></li></ul></a></div>');
+					col_counter++;
+	       	} // end of for
+	         } // end of success
+		}); // end of ajax
 
-			function Randomize(arr) {
-		   	for(var j, x, i = arr.length; i; j = parseInt(Math.random() * i), x = arr[--i], arr[i] = arr[j], arr[j] = x);
-			return arr;
-		   };
+	// loadImages used to start here
+ 		$("img.lazy").lazyload({
+	     		effect: "fadeIn"
+		});
+	} // end of load_from_DB
 
-		 });
+	// Refresh img contents
+	function refresh_images(selected_time){
+		col_counter = 0;
+		row_counter = 0;
+		$('image-container').empty();
+		load_from_DB(selected_time);
+	}
+
+	//Select class for img hover rotation
+	function pickClass() {
+		var a = [0,1];
+		Randomize(a);
+ 		if (a[0]==0){
+ 			return 'img-hover1';
+ 		}else{
+ 			return 'img-hover2';
+ 		}
+	};
+
+	// Randomize an array
+	function Randomize(arr) {
+   	for(var j, x, i = arr.length; i; j = parseInt(Math.random() * i), x = arr[--i], arr[i] = arr[j], arr[j] = x);
+	return arr;
+   };
 	</script>
 </html>

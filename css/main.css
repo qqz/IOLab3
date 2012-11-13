@@ -17,7 +17,6 @@ body {
   margin: auto 0;
   overflow: hidden;
   background: #110000;
-  /*text-transform: lowercase;*/
   position: relative; 
 }
 .header {
@@ -36,7 +35,7 @@ body {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	z-index: 1000;
+	z-index: 1001;
 	padding: .6em .6em; 
 }
 .header a {
@@ -232,7 +231,7 @@ nav {
 }
 /*Modal Styles*/
 .modal {
-	z-index: 10001;
+	z-index: 10002;
 	position: fixed;
 	background-color: #F8F8F8;
 	left: 50%;
@@ -300,7 +299,7 @@ nav {
 }
 #loading-modal {
   position: absolute;
-  z-index: 10000;
+  z-index: 10001;
   width: 220px;
   height: 220px;
   top: 50%;
@@ -320,6 +319,6 @@ nav {
   left: 0;
   z-index: 10000;
 }
-.standard-url, .img-id, .created_time {
+.standard-url, .img-id {
 	display: none;
 }
