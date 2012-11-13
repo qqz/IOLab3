@@ -1,13 +1,12 @@
 $(function() {
 
     $("#slider").slider({
-    	min: 1351699200,
-    	max: 1351728000,
+    	min: 1351699200, // 8:00 AM
+    	max: 1351728000, // 4:00 PM
     	value: 1351699200,
         step: 1800, // restrict slider to 30 minute intervals
 
         create: function(event,ui) {
-            console.log($(this).slider('value'));
             var date = new Date($(this).slider('value')*1000);
             var hours = date.getHours();
             var minutes = date.getMinutes();
@@ -24,7 +23,6 @@ $(function() {
         },
 
     	slide: function(event,ui) {
-            console.log($(this).slider('value'));
             // convert time from Unix to regular AM/PM
             var date = new Date(ui.value*1000);
             var hours = date.getHours();
@@ -60,6 +58,7 @@ $('#time').live('click', function(){
 
     $("#slider").slider('value', 1351710000);
 
+
     var date = new Date($("#slider").slider('value')*1000);
     var hours = date.getHours();
     var minutes = date.getMinutes();
@@ -73,4 +72,15 @@ $('#time').live('click', function(){
 
     // update #time div
     $('#time').html('Time: '+currentTime);
+
+    // value = current time
+    // map current time to location on screen
+
+    // if (value == '8:00'){
+    //    $('body').scrollTop();
+    // } else if (value == '9:00'){
+
+    // }
+
 });
+

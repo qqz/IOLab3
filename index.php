@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Test Img Gallery</title>
 
+    <link type="text/css" rel="stylesheet" media="all" href="css/jquery-ui-1.9.1.custom.css">
     <link type="text/css" rel="stylesheet" media="all" href="css/bootstrap.css">
     <link type="text/css" rel="stylesheet" media="all" href="css/main.css">
  
@@ -11,20 +12,18 @@
 
 <body>
 	<div class="container">
-		<ul id="nav-right">
-			<li><a href=""><img src="assets/nav-dot.png" alt="Link"></a></li>
-			<li><a href=""><img src="assets/nav-dot.png" alt="Link"></a></li>
-			<li><a href=""><img src="assets/nav-dot.png" alt="Link"></a></li>
-			<li><a href=""><img src="assets/nav-dot.png" alt="Link"></a></li>
-		</ul>
+		<div class="tag-box">
+			<strong>Tag filters</strong>
+			<ul id="tag-list">
+				<li>#tag1</li>
+				<li>#tag2</li>
+			</ul>
+		</div>
 		<header role="banner" class="header">
 			<nav>
-				<ul class="nav" id="nav">
-					<li><a href=""><img src="assets/nav-dot.png" alt="Link"></a></li>
-					<li><a href=""><img src="assets/nav-dot.png" alt="Link"></a></li>
-					<li><a href=""><img src="assets/nav-dot.png" alt="Link"></a></li>
-					<li><a href=""><img src="assets/nav-dot.png" alt="Link"></a></li>
-               </ul>
+					<div class="nav" id="slider"></div>
+	                <div id="time">Current Time</div>
+	                <div id="tag-button">Top Tags</div>
 			</nav>
 		</header>
 		<div class="masthead">
@@ -32,20 +31,6 @@
 		</div>
 
 		<div id="image-container">
-			<div class="row-fluid">
-				<div class="img-wrapper span3">
-					<span class="img-id">03cae38ff5711e182e1220</span>
-					<span class="standard-url">http://distilleryimage10.s3.amazonaws.com/703cae38ff5711e182e122000a1de761_6.jpg</span>
-					<a id="open-modal" href="">
-						<span class="img-tag">#SF Parade</span>
-						<img class="img-polaroid lazy" src="assets/blank.gif" data-original="http://distilleryimage10.s3.amazonaws.com/703cae38ff5711e182e122000a1de761_6.jpg" width="160" height="160">
-						<ul class="img-stats">
-							<li class="stat-likes"><b><span>2</span></b></li>
-							<li class="stat-comments"><b><span>0</span></b></li>
-						</ul>
-					</a>
-			</div>
-			</div>
 		</div>
 
 		<div class="modal" id="img-modal">
@@ -62,18 +47,20 @@
 	</div>
 </body>
  <script src="js/jquery-latest.min.js"></script>
+ <script src="js/jquery-ui-1.9.1.custom.min.js"></script>
  <script src="js/lazy-load.js" type="text/javascript"></script>
  <script src="js/modal.min.js" type="text/javascript"></script>
+ <script src="js/testGallery.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 
-			
-			loadFromDB();
-			function loadFromDB(){
+			loadFromDB(1351699200);
+			function loadFromDB(start_time){
+				start_time = start_time || "1351699200";
 				var col_counter = 0;
 				var col_count_mod = 4; // 4 per column, +1
 				var row_counter = 0;
-				
+			
 			// connect to database with PHP
 			<?php
 
@@ -84,13 +71,12 @@
 
 				$dbh = mysql_connect($dbhost, $dbuser, $dbpasswd) or die("Unable to connect to SQL server");
 				$my_db = @mysql_select_db($db) or die("Unable to select database");
-
-
+				//$startTime = echo "<script>document.write(Gstart);</script>";
 				// Database query code from:
 				// http://php.net/manual/en/function.mysql-query.php 
 
 				// Select ALL images for now
-				$query = sprintf("SELECT * from images LIMIT 100");
+				$query = sprintf("SELECT * from images WHERE created_time > '1351699200' LIMIT 1000");
 				$result = mysql_query($query);
 				
 				// ERROR CHECKING
@@ -109,19 +95,11 @@
 
 						row_counter++;
 						$('#image-container').append('<div class="row-fluid" id="row'+row_counter+'"></div>');
-						console.log("Row incremented: ");
-						console.log(row_counter);
 					}
 					
 					var row_div = '#row' + row_counter;
-					console.log("row_div id #........");
-					console.log(row_div);
-					console.log("row count....");
-					console.log(row_counter);
-					console.log("column count...");
-					console.log(col_counter);
 
-				$(row_div).append('<div class="img-wrapper span3"><a id="open-modal" href="#"><span class="img-tag">#SF Parade</span><img class="img-polaroid lazy" src="assets/blank.gif" data-original="<?php echo $row['thumbnail_url']; ?>" width="160" height="160"><ul class="img-stats"><li class="stat-likes"><b><span><?php echo $row['like_count']; ?></span></b></li><li class="stat-comments"><b><span><?php echo $row['comment_count']; ?></span></b></li></ul></a></div>');
+				$(row_div).append('<div class="img-wrapper span3"><span class="img-id"><?php echo $row['id']; ?></span><span class="standard-url"><?php echo $row['standard_url']; ?></span><span class="created_time"><?php echo $row['created_time']; ?></span><a id="open-modal" href="#"><span class="img-tag">#SF Parade</span><img class="img-polaroid lazy" src="assets/blank.gif" data-original="<?php echo $row['thumbnail_url']; ?>" width="160" height="160"><ul class="img-stats"><li class="stat-likes"><b><span><?php echo $row['like_count']; ?></span></b></li><li class="stat-comments"><b><span><?php echo $row['comment_count']; ?></span></b></li></ul></a></div>');
 				col_counter++;
 
     				<?	
@@ -139,8 +117,9 @@
 			$(".img-wrapper").click(function(e) {
 				var id = $(this).children('.img-id').text();
 				var url = $(this).children('.standard-url').text();
+				console.log(id);
+				console.log(url);
 				$('#img-modal img').attr('src', url);
-
 				//PHP pass id to db, and get tags
 
 				$("#img-modal").mikesModal();

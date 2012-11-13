@@ -320,6 +320,6 @@ nav {
   left: 0;
   z-index: 10000;
 }
-.standard-url, .img-id{
+.standard-url, .img-id, .created_time {
 	display: none;
 }
