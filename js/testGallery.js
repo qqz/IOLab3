@@ -27,6 +27,7 @@ $(function() {
             if (hours > 11) { ampm = "PM" }
             if (hours > 12) { hours = hours - 12; }
             if (hours == 0) { hours = 12; }
+            if (minutes < 10) { minutes = "0" + minutes }
             if (minutes == 0) { minutes = "00" } 
             var currentTime = hours+":"+minutes+ampm;
 
