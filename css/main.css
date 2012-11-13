@@ -4,6 +4,7 @@ body {
 }
 .container {
 	background: #EAEAEA;
+	padding-bottom: 75px;
 	-webkit-border-radius: 0 0 4px 4px;
 	 -khtml-border-radius: 0 0 4px 4px;
 	   -moz-border-radius: 0 0 4px 4px;
@@ -27,9 +28,6 @@ body {
 	-o-transition: all 0.4s ease-out;
 	transition: all 0.4s ease-out;
 }
-.header:hover {
-	/*padding: 1.2em 1em; */
-} 
 .header {
 	line-height: 1;
 	position: fixed;

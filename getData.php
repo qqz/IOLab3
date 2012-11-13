@@ -1,7 +1,7 @@
 <?php
 
 
-$start_time = $REQUEST['start_time'];
+$start_time = $_REQUEST['start_time'];
 
 // database
 	$dbhost = 'localhost';
@@ -14,7 +14,7 @@ $start_time = $REQUEST['start_time'];
 
 	// Select ALL images for now
 	//$query = sprintf("SELECT * from images where created_time>'".$start_time."' LIMIT 200");
-	$query = sprintf("SELECT * from images LIMIT 200");
+	$query = sprintf("SELECT * from images WHERE created_time>='".$start_time."' ORDER BY  `images`.`created_time` ASC LIMIT 200");
 
 	$result = mysql_query($query);
 				
