@@ -8,8 +8,10 @@ $(function() {
     	value: 1351699200,
         step: 1800, // restrict slider to 30 minute intervals
 
+        // set initial time
         create: function(event,ui) {
             selected_time = $(this).slider('value');
+            // convert time from Unix to regular AM/PM
             var date = new Date(selected_time*1000);
             var hours = date.getHours();
             var minutes = date.getMinutes();
@@ -25,6 +27,7 @@ $(function() {
             $('#time').html('Time: '+currentTime);
         },
 
+        // set time on slide
     	slide: function(event,ui) {
             selected_time = $(this).slider('value');
             console.log(selected_time);
