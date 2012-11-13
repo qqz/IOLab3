@@ -10,8 +10,7 @@ function convertTime(unixtime) {
     if (hours == 0) { hours = 12; }
     if (minutes < 10) { minutes = "0" + minutes }
     if (minutes == 0) { minutes = "00" } 
-    var currentTime = hours+":"+minutes+ampm;
-    return currentTime
+    return hours+":"+minutes+ampm; 
 };
 
 $(function() {
