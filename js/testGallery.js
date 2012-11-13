@@ -30,7 +30,7 @@ $(function() {
         },
 
         // set time on slide
-    	slide: function(event,ui) {
+    	stop: function(event,ui) {
             // update selected_time to new slider value
             selected_time = ui.value;
             console.log(selected_time);
