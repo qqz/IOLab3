@@ -39,6 +39,6 @@ Firefox
 IE 7  
 
 ###Bugs/quirks we're aware of
--Performance isn't quite as good as we'd like. We've restricted it to loading 200 images per time interval, though we have more available. Ideally, we would have wanted to load more if we could find a way to increase performance.
--There's a split second of grey screen when you click on a new time on the slider. We're having trouble with the timeline bar staying in place, but it moves back correctly after that split second. Tried to de-bug this but couldn't quite get to the bottom of it.
+-Performance isn't quite as good as we'd like. We've restricted it to loading 200 images per time interval, though we have more available. Ideally, we would have wanted to load more if we could find a way to increase performance.  
+-There's a split second of grey screen when you click on a new time on the slider. We're having trouble with the timeline bar staying in place, but it moves back correctly after that split second. Tried to de-bug this but couldn't quite get to the bottom of it.  
 -Small quirk with our modal loading icon - it works for the first image, then doesn't work for subsequent ones.
