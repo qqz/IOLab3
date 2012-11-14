@@ -30,7 +30,7 @@ $(document).ready(function() {
       }
     );
 
-    // Slider functionality
+    // Time Slider
     $(function() {
 
         $("#slider").slider({
@@ -43,8 +43,6 @@ $(document).ready(function() {
             create: function(event,ui) {
                 // update selected_time to new slider value
                 selected_time = $(this).slider('value');
-                // update #time div
-                $('#time').html('Time: '+convertTime(selected_time));
             },
 
             // set time on slide
@@ -53,8 +51,6 @@ $(document).ready(function() {
                 selected_time = ui.value;
                 // call load DB and clear current images
                 refresh_images(selected_time);
-                // update #time div
-                $('#time').html('Time: '+convertTime(selected_time));
             }
 
         });
@@ -82,9 +78,13 @@ function load_from_DB(selected_time){
             }
             var row_div = '#row' + row_counter;
 
-            $(row_div).append('<div class="img-wrapper span3"><span class="img-id">'+data.rows[i].image_id+'</span><span class="standard-url">'+data.rows[i].standard_url+'</span><span class="created_time">'+data.rows[i].created_time+'</span><a id="open-modal" href="#"><span class="img-tag">#SF Parade</span><img class="img-polaroid lazy" src="assets/blank.gif" data-original="'+data.rows[i].thumbnail_url+'" width="160" height="160"><ul class="img-stats"><li class="stat-likes"><b><span>'+data.rows[i].like_count+'</span></b></li><li class="stat-comments"><b><span>'+data.rows[i].comment_count+'</span></b></li></ul></a></div>');
+            $(row_div).append('<div class="img-wrapper span3"><span class="img-id">'+data.rows[i].image_id+'</span><span class="standard-url">'+data.rows[i].standard_url+'</span><span class="created_time">'+data.rows[i].created_time+'</span><a id="open-modal" href="#"><img class="img-polaroid lazy" src="assets/blank.gif" data-original="'+data.rows[i].thumbnail_url+'" width="160" height="160"><ul class="img-stats"><li class="stat-likes"><b><span>'+data.rows[i].like_count+'</span></b></li><li class="stat-comments"><b><span>'+data.rows[i].comment_count+'</span></b></li></ul></a></div>');
                 col_counter++;
+
         } // end of for
+        for (var j=0; j<data.tags.length; j++){
+            $('#tag-box-list').append('<li>#'+data.tags[j].tagname+' ['+data.tags[j].frequency+'] </li>');
+        }
          } // end of success
     }).complete( function(){
         // loadImages used to start here
@@ -104,11 +104,25 @@ function load_from_DB(selected_time){
         $(".img-wrapper").click(function(e) {
             var id = $(this).children('.img-id').text();
             var url = $(this).children('.standard-url').text();
-            console.log(id);
-            console.log(url);
-            $('#img-modal img').attr('src', url);
-            //PHP pass id to db, and get tags
 
+            // add img source
+            $('#img-modal img').attr('src', url);
+            // Make request for img tags
+            $.ajax({
+               type: "POST",
+               dataType: "json",                                        
+               url: "getTagsByImage.php",
+               data: ({ image_id: id}),
+               success: function(data) {
+                    // for each result, add thumbnail picture to the page
+                    if (data.rows.length == 0){
+                        $('#tag-modal-list').append('<li>No Tags for this one, sorry :(</li>');
+                    }
+                    for (var i = 0;i<data.rows.length;i++) {
+                        $('#tag-modal-list').append('<li>#'+data.rows[i].tagname+'</li>');
+                    }// end of for
+                } // end of success
+            });
             $("#img-modal").mikesModal();
             return false;
           });
@@ -121,9 +135,10 @@ function load_from_DB(selected_time){
 function refresh_images(selected_time){
     col_counter = 0;
     row_counter = 0;
+    $('#selected_time').empty().append(convertTime(selected_time));
     $('#image-container').empty();
-    $('#tag-list').empty();
-    load_from_DB(selected_time);
+    $('#tag-box-list').empty();
+    load_from_DB(selected_time).fadeIn("slow");
 }
 
 //Select class for img hover rotation
@@ -590,6 +605,8 @@ return arr;
     };
 
     MikesModal.prototype.triggerClose = function() {
+            // clear modal contents
+            $('#tag-modal-list').empty();
       var _this = this;
       $(document).keyup(function(e) {
         if (e.keyCode === 27) {
@@ -623,7 +640,7 @@ return arr;
     };
 
     MikesModal.prototype.addClose = function() {
-      return $(".description h1").before("<div class='close'>x</div>");
+      return $(".description h1").before("<div class='close'></div>");
     };
 
     return MikesModal;

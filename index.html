@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Test Img Gallery</title>
+    <title>Insta Giants Parade</title>
 
     <link type="text/css" rel="stylesheet" media="all" href="css/main.css">
  
@@ -11,10 +11,8 @@
 <body>
 	<div class="container">
 		<div class="tag-box">
-			<strong>Tag filters</strong>
-			<ul id="tag-list">
-				<li>#tag1</li>
-				<li>#tag2</li>
+			<strong>Top Tags at <span id="selected_time">8:00 AM</span></strong>
+			<ul id="tag-box-list">
 			</ul>
 		</div>
 		<header role="banner" class="header">
@@ -33,12 +31,11 @@
 						<li>4pm</li>
 					</ul>
 				</div>
-                <div id="time">Current Time</div>
                 <div id="tag-button">Top Tags</div>
 			</nav>
 		</header>
 		<div class="masthead">
-			<img src="assets/sf-giants-logo.png" alt="SF Giants Logo" width="457" height="246">
+			<img src="assets/logo.png" alt="SF Giants Logo" width="457" height="246">
 		</div>
 
 		<div id="image-container">
@@ -47,10 +44,8 @@
 		<div class="modal" id="img-modal">
 		  <img src=''>
 		  <div class="description">
-		    <h1>Top Tags</h1>
-		    <ul class="tag-list">
-		    	<li>tag1</li>
-		    	<li>tag2</li>
+		    <h1>Tags</h1>
+		    <ul id="tag-modal-list" class="tag-list">
 		    </ul>
 		  </div>
 		</div>
